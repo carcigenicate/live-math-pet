@@ -15,10 +15,12 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Leiningen: bouncycastle/bcmail-jdk14:138" level="project" />
     <orderEntry type="library" name="Leiningen: bouncycastle/bcprov-jdk14:138" level="project" />
+    <orderEntry type="library" name="Leiningen: clj-time:0.14.0" level="project" />
     <orderEntry type="library" name="Leiningen: clojure-complete:0.2.4" level="project" />
     <orderEntry type="library" name="Leiningen: com.lowagie/itext:2.1.7" level="project" />
     <orderEntry type="library" name="Leiningen: criterium:0.4.4" level="project" />
     <orderEntry type="library" name="Leiningen: helpers:1" level="project" />
+    <orderEntry type="library" name="Leiningen: joda-time:2.9.7" level="project" />
     <orderEntry type="library" name="Leiningen: org.apache.xmlgraphics/batik-awt-util:1.8" level="project" />
     <orderEntry type="library" name="Leiningen: org.apache.xmlgraphics/batik-css:1.8" level="project" />
     <orderEntry type="library" name="Leiningen: org.apache.xmlgraphics/batik-dom:1.8" level="project" />
