@@ -17,3 +17,5 @@
 
 (defn format-date [d]
   (cf/unparse date-formatter d))
+
+(def now ct/now)
