@@ -13,4 +13,4 @@
 
 (defn load-game-save [label]
   (let [save (sa/load-record label map->Game-Save)]
-    (update save :save-date t/format-date)))
+    (update save :save-date t/read-date)))

@@ -4,5 +4,3 @@
 ; TODO: Money?
 (defrecord Game-State [pet last-feed-time])
 
-(defn advance-pet-by [pet seconds]
-  (pet))
