@@ -4,3 +4,4 @@
 ; TODO: Money?
 (defrecord Game-State [pet last-feed-time])
 
+(defn advance-state [game-state ask-question-f])
