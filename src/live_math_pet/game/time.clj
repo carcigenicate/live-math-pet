@@ -19,3 +19,12 @@
   (cf/unparse date-formatter d))
 
 (def now ct/now)
+
+(defn timed-do* [f]
+  (let [start-t (now)
+        result (f)
+        secs-taken (seconds-between start-t (now))]
+    [secs-taken result]))
+
+(defmacro timed-do [& body]
+  `(timed-do* (fn [] ~@body)))

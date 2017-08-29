@@ -2,6 +2,5 @@
   (:require [live-math-pet.game.game-save :as gs]))
 
 ; TODO: Money?
-(defrecord Game-State [pet last-feed-time])
-
-(defn advance-state [game-state ask-question-f])
+; TODO: Add settings and question-set to Game-Save
+(defrecord Game-State [pet last-feed-time question-set settings])
