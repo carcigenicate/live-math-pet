@@ -1,4 +1,4 @@
-(ns live-math-pet.question.question-types)
+(ns live-math-pet.game.question.question-types)
 
 (def easy-range [0 10])
 

@@ -1,6 +1,6 @@
-(ns live-math-pet.question.question-generator
+(ns live-math-pet.game.question.question-generator
   (:require [helpers.general-helpers :as g]
-            [live-math-pet.question.question :as que]))
+            [live-math-pet.game.question.question :as que]))
 
 (defrecord Question-Generator [operator-ranges])
 
