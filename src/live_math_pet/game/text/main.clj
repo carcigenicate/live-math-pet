@@ -16,7 +16,6 @@
          acc-state initial-game-state]
     (let [])))
 
-
 (def test-game-state
   (->
     (g-state/new-game-state

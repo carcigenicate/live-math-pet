@@ -3,8 +3,16 @@
 
 (def well-fed-percentage 0.8)
 
+(defn format-round [num places]
+  (format (str "%." places "f")
+          (double num)))
+
 ; TODO: Happiness? Based on repeated good/bad health?
-(defrecord Pet [satiation max-satiation health max-health])
+(defrecord Pet [satiation max-satiation health max-health]
+  Object
+  (toString [self] (let [r #(format-round % 2)]
+                     (str "{HP: " (r health) "/" max-health
+                          " -  Sat: " (r satiation) "/" max-satiation "}"))))
 
 (defn new-pet [max-health max-satiation]
   (->Pet max-satiation max-satiation max-health max-health))

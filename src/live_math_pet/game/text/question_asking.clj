@@ -34,7 +34,7 @@
                                          [wrong-message #(pe/hurt % paW)])]
 
     (when (some? right-or-stop?)
-      ; TODO: Eww! Figure out above, then re-associate with state?
+      ; FIXME: Eww! Figure out above, then re-associate with state?
       (println message (th/format-pet (act (:pet game-state))))
       (update game-state :pet act))))
 
