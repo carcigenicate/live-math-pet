@@ -3,6 +3,7 @@
             [live-math-pet.game.question.question-generator :as qg]
             [live-math-pet.game.question.question :as que]
             [live-math-pet.game.question.operator-symbols :as os]
+            [live-math-pet.game.game-state :as gs]
             [live-math-pet.game.text.helpers :as th]
             [helpers.general-helpers :as g]))
 
@@ -23,6 +24,11 @@
     (when (some? guess)
       (= guess ans))))
 
+; TODO: Try to factor out asking/displaying questions/results using HOF.
+; TODO: Accept: - Func taking a Question, to be used to display somewhere. Return the user's answer
+; TODO:             - How to indicate to the caller if the answer was right?
+; TODO:             - Expect them to use the question to get the answer? Probably cleanest.
+; TODO:         - That's it?
 (defn ask-question
   "Returns either the new game state that resulted from the user answering a question,
   or nil to indicate that the user wants to stop."
@@ -34,9 +40,11 @@
                                          [wrong-message #(pe/hurt % paW)])]
 
     (when (some? right-or-stop?)
-      ; FIXME: Eww! Figure out above, then re-associate with state?
-      (println message (th/format-pet (act (:pet game-state))))
-      (update game-state :pet act))))
+      ; FIXME: Eww! Figure out advanced pet above, then re-associate with state?
+      (println message (str (act (:pet game-state))))
+      (-> game-state
+          (update :pet act)
+          (gs/apply-time)))))
 
 (defn ask-questions [game-state rand-gen]
   (loop [acc-state game-state]

@@ -1,5 +1,5 @@
 (ns live-math-pet.game.game-state
-  (:require [live-math-pet.game.game-save :as gs]
+  (:require [live-math-pet.game.game-save :as g-save]
             [live-math-pet.game.question.question-generator :as qg]
             [live-math-pet.game.question.question-types :as qt]
             [live-math-pet.game.pet :as pe]
@@ -11,10 +11,12 @@
 (def default-starting-max-satiation 100)
 
 ; TODO: Money?
-; TODO: Add settings and question-set to Game-Save
 
+; TODO: Add settings and question-set to Game-Save
 ; TODO: Just save the entire state to disk?
 ; TODO: Map operators to strings so they can be saved easier?
+; TODO: 
+
 (defrecord Game-State [pet q-gen last-update settings])
 
 (defn new-game-state [starting-health starting-satiation question-set settings]
