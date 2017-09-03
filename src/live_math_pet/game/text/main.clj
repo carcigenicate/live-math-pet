@@ -6,17 +6,26 @@
             [live-math-pet.game.game-state :as gs]
             [live-math-pet.game.settings :as se]
             [live-math-pet.game.text.question-asking :as qa]
-            [live-math-pet.game.question.question-types :as qt]))
+            [live-math-pet.game.question.question-types :as qt]
+            [live-math-pet.game.text.menu :as me]))
 
-(defn get-menu-option [opt]
-  ; TODO: Print menu, then switch over the options.
-  ; TODO: Sufficient to just have each option return a game-state?
-  (println))
+(def global-rand-gen (g/new-rand-gen 99))
 
+; TODO: Try to generalize so this doesn't need to be entirely duplicated for the Quil version
 (defn main-loop [initial-game-state rand-gen]
-  (loop [last-time (t/now)
-         acc-state initial-game-state]
-    (let [])))
+  (loop [acc-state initial-game-state]
+    (me/print-menu-options)
+
+    (let [option-char (me/ask-for-menu-option)
+          menu-action (me/menu-actions-by-char option-char rand-gen)]
+
+      (if menu-action
+          (let [altered-state (menu-action acc-state)
+                time-updated-state (gs/apply-time altered-state)]
+            ; TODO: Almost done basic setup?
+            (recur time-updated-state))))))
+
+
 
 (def test-game-state
   (->
