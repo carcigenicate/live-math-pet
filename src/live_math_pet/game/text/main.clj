@@ -7,13 +7,18 @@
             [live-math-pet.game.settings :as se]
             [live-math-pet.game.text.question-asking :as qa]
             [live-math-pet.game.question.question-types :as qt]
-            [live-math-pet.game.text.menu :as me]))
+            [live-math-pet.game.text.menu :as me]
+            [live-math-pet.game.saving.game-save :as g-save]))
 
 (def global-rand-gen (g/new-rand-gen 99))
+
+(def default-game-label "pet")
 
 ; TODO: Try to generalize so this doesn't need to be entirely duplicated for the Quil version
 (defn main-loop [initial-game-state rand-gen]
   (loop [acc-state initial-game-state]
+    (g-save/save-game-save default-game-label acc-state)
+    (println (str "\n" (-> acc-state :pet str)))
     (me/print-menu-options)
 
     (let [option-char (me/ask-for-menu-option)
@@ -23,7 +28,9 @@
           (let [altered-state (menu-action acc-state)
                 time-updated-state (gs/apply-time altered-state)]
             ; TODO: Almost done basic setup?
-            (recur time-updated-state))))))
+            (recur time-updated-state))
+
+          acc-state))))
 
 
 

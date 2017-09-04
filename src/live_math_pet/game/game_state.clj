@@ -1,6 +1,5 @@
 (ns live-math-pet.game.game-state
-  (:require [live-math-pet.game.game-save :as g-save]
-            [live-math-pet.game.question.question-generator :as qg]
+  (:require [live-math-pet.game.question.question-generator :as qg]
             [live-math-pet.game.question.question-types :as qt]
             [live-math-pet.game.pet :as pe]
             [live-math-pet.game.settings :as se]
@@ -42,6 +41,6 @@
   (new-game-state default-starting-max-health default-starting-max-satiation
                   qt/plus-minus-mult-easy
                   (se/->Settings
-                    (se/->Sim-Settings 0.1 last-8-hours-dec last-8-hours-dec)
+                    (se/->Sim-Settings 0.0075 last-8-hours-dec last-8-hours-dec)
                     (se/->Question-Settings 2 5))))
 

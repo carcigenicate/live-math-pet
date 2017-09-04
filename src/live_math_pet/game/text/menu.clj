@@ -2,7 +2,8 @@
   (:require [live-math-pet.game.text.question-asking :as qa]
 
             [clojure.string :as s]
-            [helpers.general-helpers :as g]))
+            [helpers.general-helpers :as g]
+            [live-math-pet.game.pet :as pe]))
 
 ; TODO: Generalize to allow use in Quil version?
 
@@ -13,20 +14,33 @@
     (apply f (reverse args))))
 
 (def menu-chars
-  {\m ::main
+  {\r ::reload
    \s ::store
-   \f ::feed})
+   \f ::feed
+   \t ::test
+   \e ::exit})
+
+(defn hurt-starve [state]
+  (update state :pet
+          #(-> %
+               (pe/starve 10)
+               (pe/hurt 10))))
 
 ; TODO: LOL. Get rid of `rev`
 (defn menu-actions
-  "Returns a function that takes a game-state and returns an altered game-state."
+  "Returns a function that takes a game-state and returns an altered game-state,
+    or nil to indicate exiting."
   [option-key rand-gen]
   ((rev get) option-key
-    {::main identity
+    {::reload  identity
 
      ::store identity
 
-     ::feed #(qa/ask-questions % rand-gen)}))
+     ::feed  #(qa/ask-questions % rand-gen)
+
+     ::test  hurt-starve
+
+     ::exit nil}))
 
 (defn menu-actions-by-char [option-char rand-gen]
   (menu-actions (menu-chars option-char)
