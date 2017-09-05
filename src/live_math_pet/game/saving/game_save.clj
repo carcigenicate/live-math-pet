@@ -1,7 +1,7 @@
 (ns live-math-pet.game.saving.game-save
   (:require [live-math-pet.game.time :as t]
             [live-math-pet.game.operator-symbols :as os]
-
+            [live-math-pet.game.saving.saving-helpers :as sh]
             [live-math-pet.game.game-state :as gs]
             [live-math-pet.game.settings :as se]
 
@@ -11,51 +11,52 @@
 
 (def operator-path [:q-gen :operator-ranges])
 
-(def save-path "./")
-(def save-extension "pet")
-
-(def reader-options {:readers {'live-math-pet.game.game-state.Game-State gs/map->Game-State
-
-                               'live-math-pet.game.question.question-generator.Question-Generator
-                               qg/map->Question-Generator
-
-                               'live-math-pet.game.pet.Pet pe/map->Pet
-
-                               'live-math-pet.game.settings.Settings se/map->Settings
-                               'live-math-pet.game.settings.Question-Settings se/map->Question-Settings
-                               'live-math-pet.game.settings.Sim-Settings se/map->Sim-Settings}})
-
-(defn label-path [label]
-  (str save-path label \. save-extension))
-
-(defn save-record [label record]
-  (spit (label-path label) (pr-str record)))
-
-(defn load-raw-map [label]
-  (edn/read-string
-    (slurp (label-path label))))
-
-(defn load-record [label map-constructor]
-  (map-constructor
-    (load-raw-map label)))
-
-(defn translate-operators-to-symbols [game-state]
+(defn translate-math-operators-to-symbols [game-state]
   (update-in game-state operator-path
     #(into {}
        (map (fn [[o r]]
               [(os/operator-symbols o) r]) %))))
 
+(defn translate-date-obj-to-str [game-state]
+  (update game-state :last-update t/format-date))
+
+#_
+(defn flatten-game-state [game-state]
+  (let [{:keys [pet, q-gen, last-update, settings]} game-state
+        {:keys [health, max-health, satiation, max-satiation]} pet
+        {:keys [sim-settings, question-settings]} settings
+        {:keys [health-per-tick, pain-per-tick, hunger-per-tick]} sim-settings
+        {:keys [pain-per-wrong, food-per-right]} question-settings]
+    ; TODO: Way too much redundancy?
+    game-state))
+#_
+(defn flatten-to-children [assoc?]
+  (if (associative? assoc?)
+    (mapcat flatten-to-children assoc?)
+    ()))
+
+(defn flatten-to-leaves [record]
+  (into {}
+    (filter
+      #(and (map-entry? %)
+            (not (associative? (second %))))
+
+      (tree-seq associative? (partial apply list) record))))
+
 (defn save-game-save [label game-state]
   (->> game-state
-       (translate-operators-to-symbols)
-       (save-record label)))
+       (translate-math-operators-to-symbols)
+       (translate-date-obj-to-str)
+       (sh/save-associative label)))
 
-(defn translate-symbols-to-operators [game-state]
+(defn translate-math-symbols-to-operators [game-state]
   (update-in game-state operator-path
     #(into {}
        (map (fn [[s r]]
               [(os/operator-from-symbol s) r]) %))))
 
+(defn translate-date-str-to-obj [game-state])
+
+; TODO: Will need to manually deconstruct the flattened state.
 (defn load-game-save [label]
-  (-> (sh/load-record label gs/map->Game-State)
-      (translate-symbols-to-operators)))
+  (println "Load not implemented."))

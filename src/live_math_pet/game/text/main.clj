@@ -32,8 +32,6 @@
 
           acc-state))))
 
-
-
 (def test-game-state
   (->
     (gs/new-game-state
