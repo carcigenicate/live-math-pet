@@ -27,7 +27,7 @@
       (if menu-action
           (let [altered-state (menu-action acc-state)
                 time-updated-state (gs/apply-time altered-state)]
-            ; TODO: Almost done basic setup?
+
             (recur time-updated-state))
 
           acc-state))))
