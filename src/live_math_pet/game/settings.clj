@@ -6,3 +6,8 @@
 (defrecord Settings [sim-settings question-settings])
 
 (def settings-label "settings")
+
+(def test-settings
+  (->Settings
+    (->Sim-Settings 1 1 1)
+    (->Question-Settings 1 1)))
