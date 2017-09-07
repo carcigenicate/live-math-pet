@@ -7,7 +7,7 @@
 (defn label-path [label]
   (str save-path label \. save-extension))
 
-(defn save-associative [label associative]
+(defn save-associative [associative label]
   (spit (label-path label)
         (into {} associative)))
 

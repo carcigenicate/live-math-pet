@@ -11,6 +11,8 @@
 
 (def operator-path [:q-gen :operator-ranges])
 
+; ----- Saving -----
+
 (defn translate-math-operators-to-symbols [game-state]
   (update-in game-state operator-path
     #(into {}
@@ -20,20 +22,10 @@
 (defn translate-date-obj-to-str [game-state]
   (update game-state :last-update t/format-date))
 
-#_
-(defn flatten-game-state [game-state]
-  (let [{:keys [pet, q-gen, last-update, settings]} game-state
-        {:keys [health, max-health, satiation, max-satiation]} pet
-        {:keys [sim-settings, question-settings]} settings
-        {:keys [health-per-tick, pain-per-tick, hunger-per-tick]} sim-settings
-        {:keys [pain-per-wrong, food-per-right]} question-settings]
-    ; TODO: Way too much redundancy?
-    game-state))
-#_
-(defn flatten-to-children [assoc?]
-  (if (associative? assoc?)
-    (mapcat flatten-to-children assoc?)
-    ()))
+(defn translate-to-symbols-pre-save [game-state]
+  (-> game-state
+      (translate-date-obj-to-str)
+      (translate-math-operators-to-symbols)))
 
 (defn flatten-to-leaves [record]
   (into {}
@@ -44,10 +36,12 @@
       (tree-seq associative? (partial apply list) record))))
 
 (defn save-game-save [label game-state]
-  (->> game-state
-       (translate-math-operators-to-symbols)
-       (translate-date-obj-to-str)
-       (sh/save-associative label)))
+  (-> game-state
+      (translate-to-symbols-pre-save)
+      (flatten-to-leaves)
+      (sh/save-associative label)))
+
+; ----- Loading -----
 
 (defn translate-math-symbols-to-operators [game-state]
   (update-in game-state operator-path
@@ -55,8 +49,24 @@
        (map (fn [[s r]]
               [(os/operator-from-symbol s) r]) %))))
 
-(defn translate-date-str-to-obj [game-state])
+(defn translate-date-str-to-obj [game-state]
+  (update game-state :last-update t/read-date))
+
+(defn translate-from-symbols-post-load [unprepared-game-state]
+  (-> unprepared-game-state
+      (translate-math-symbols-to-operators)
+      (translate-date-str-to-obj)))
+
+(defn decompress-state [flattened-game-state]
+  (let [fgs flattened-game-state
+        {:keys [last-update, operator-ranges]} fgs
+        {:keys [health, max-health, satiation, max-satiation]} fgs
+        {:keys [pain-per-tick, hunger-per-tick, health-per-tick]} fgs
+        {:keys [pain-per-wrong, food-for-right]} fgs]))
+    ; FIXME: Finish!
+
 
 ; TODO: Will need to manually deconstruct the flattened state.
 (defn load-game-save [label]
-  (println "Load not implemented."))
+  (-> (sh/load-raw-map label)
+      (translate-from-symbols-post-load)))
