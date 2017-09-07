@@ -57,16 +57,24 @@
       (translate-math-symbols-to-operators)
       (translate-date-str-to-obj)))
 
+; TODO: Eww, but not as bad as I thought it would be
+; TODO: Move the messy bits to another file?
 (defn decompress-state [flattened-game-state]
   (let [fgs flattened-game-state
         {:keys [last-update, operator-ranges]} fgs
         {:keys [health, max-health, satiation, max-satiation]} fgs
         {:keys [pain-per-tick, hunger-per-tick, health-per-tick]} fgs
-        {:keys [pain-per-wrong, food-for-right]} fgs]))
-    ; FIXME: Finish!
+        {:keys [pain-per-wrong, food-for-right]} fgs]
 
+    (gs/->Game-State
+      (pe/->Pet satiation max-satiation health max-health)
+      (qg/->Question-Generator operator-ranges)
+      last-update
+      (se/->Settings
+        (se/->Sim-Settings health-per-tick pain-per-tick hunger-per-tick)
+        (se/->Question-Settings pain-per-tick food-for-right)))))
 
-; TODO: Will need to manually deconstruct the flattened state.
 (defn load-game-save [label]
   (-> (sh/load-raw-map label)
+      (decompress-state)
       (translate-from-symbols-post-load)))

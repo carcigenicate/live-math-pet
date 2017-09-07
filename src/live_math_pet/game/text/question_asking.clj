@@ -41,7 +41,7 @@
 
     (when (some? right-or-stop?)
       ; FIXME: Eww! Figure out advanced pet above, then re-associate with state?
-      (println message (str (act (:pet game-state))))
+      (println message (str (act (:pet game-state) "\n")))
       (-> game-state
           (update :pet act)
           (gs/apply-time)))))

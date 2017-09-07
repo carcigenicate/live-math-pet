@@ -34,7 +34,7 @@
       (assoc :last-update now))))
 
 (def last-8-hours-dec
-  "100 / (seconds in 8 hours)."
+  "(starting health of 100) / (seconds in 8 hours)."
   0.00347)
 
 (def test-starting-state
