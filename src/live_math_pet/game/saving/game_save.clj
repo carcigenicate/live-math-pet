@@ -27,6 +27,8 @@
       (translate-date-obj-to-str)
       (translate-math-operators-to-symbols)))
 
+; FIXME: Is removing the operator ranges, since they're associative!
+; TODO: Need a more precise filtering scheme.
 (defn flatten-to-leaves [record]
   (into {}
     (filter
