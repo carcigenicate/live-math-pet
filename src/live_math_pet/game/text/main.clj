@@ -13,7 +13,7 @@
 
   (:import [java.io FileNotFoundException]))
 
-; TODO: IT WORKS! Set up an actual main that handles loading.
+; TODO: Loading is broken unfortunately. Works otherwise.
 
 (def global-rand-gen (g/new-rand-gen 99))
 
