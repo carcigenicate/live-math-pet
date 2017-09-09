@@ -13,13 +13,11 @@
 ; TODO: Map operators to strings so they can be saved easier?
 ; TODO: 
 
-(defrecord Game-State [pet q-gen last-update settings])
-
-(defn new-game-state [starting-health starting-satiation question-set settings]
-  (->Game-State (pe/new-pet starting-health starting-satiation)
-                (qg/->Question-Generator question-set)
-                (t/now)
-                settings))
+(defn new-game-state-for-now [starting-health starting-satiation question-set settings]
+  {:pet (pe/new-pet starting-health starting-satiation)
+   :q-gen (qg/->Question-Generator question-set)
+   :last-update (t/now)
+   :settings settings})
 
 (defn apply-time [game-state]
   (let [{:keys [last-update settings]} game-state

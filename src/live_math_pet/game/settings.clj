@@ -1,11 +1,8 @@
 (ns live-math-pet.game.settings)
 
-(defrecord Sim-Settings [health-per-tick pain-per-tick hunger-per-tick])
-(defrecord Question-Settings [pain-per-wrong food-per-right])
+(defn new-settings [health-per-tick pain-per-tick hunger-per-tick]
+  :health-per-tick)
 
-(defrecord Settings [sim-settings question-settings])
-
-(def settings-label "settings")
 
 (def test-settings
   (->Settings

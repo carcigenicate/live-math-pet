@@ -27,20 +27,12 @@
       (translate-date-obj-to-str)
       (translate-math-operators-to-symbols)))
 
-; FIXME: Is removing the operator ranges, since they're associative!
-; TODO: Need a more precise filtering scheme.
-(defn flatten-to-leaves [record]
-  (into {}
-    (filter
-      #(and (map-entry? %)
-            (not (associative? (second %))))
+(defn nested-recs-to-nest-maps [record-node])
 
-      (tree-seq associative? (partial apply list) record))))
 
 (defn save-game-save [label game-state]
   (-> game-state
       (translate-to-symbols-pre-save)
-      (flatten-to-leaves)
       (sh/save-associative label)))
 
 ; ----- Loading -----

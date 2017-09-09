@@ -30,7 +30,7 @@
 (defn game-state-for-now
   "Creates a default game state with the last update time as the time this function was called."
   []
-  (gs/->Game-State
+  (gs/new-game-state-for-now
     (pe/new-pet starting-health starting-satiation)
 
     (qg/->Question-Generator operator-ranges)
