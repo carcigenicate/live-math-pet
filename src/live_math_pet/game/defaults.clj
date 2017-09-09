@@ -40,6 +40,3 @@
     (se/->Settings
       (se/->Sim-Settings health-per-tick pain-per-tick hunger-per-tick)
       (se/->Question-Settings pain-per-wrong-q food-per-right-q))))
-
-(defrecord Test-Rec1 [sub num])
-(defrecord Test-Rec2 [sub1 sub2 num])
