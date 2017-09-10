@@ -3,19 +3,13 @@
 
 (def well-fed-percentage 0.8)
 
-(defn format-round [num places]
-  (format (str "%." places "f")
-          (double num)))
-
 ; TODO: Happiness? Based on repeated good/bad health?
-(defrecord Pet [satiation max-satiation health max-health]
-  Object
-  (toString [self] (let [r #(format-round % 2)]
-                     (str "{HP: " (r health) "/" max-health
-                          " -  Sat: " (r satiation) "/" max-satiation "}"))))
 
 (defn new-pet [max-health max-satiation]
-  (->Pet max-satiation max-satiation max-health max-health))
+  {:satiation max-satiation
+   :max-satiation max-satiation
+   :health max-health
+   :max-health max-health})
 
 (defn- clamp-health [pet]
   (update pet :health
@@ -50,3 +44,13 @@
 (defn well-fed? [pet]
   (>= (:satiation pet)
       (* (:satiation pet) well-fed-percentage)))
+
+(defn format-round [num places]
+  (format (str "%." places "f")
+          (double num)))
+
+(defn format-pet [pet]
+  (let [{:keys [health max-health satiation max-satiation]} pet
+        r #(format-round % 2)]
+    (str "{HP: " (r health) "/" max-health
+         " -  Sat: " (r satiation) "/" max-satiation "}")))

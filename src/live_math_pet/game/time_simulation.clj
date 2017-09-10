@@ -13,11 +13,11 @@
 
     (p/starve healed-hurt-pet huT)))
 
-(defn advance-pet-by [pet sim-settings ticks]
+(defn advance-pet-by [pet settings ticks]
     (reduce (fn [acc-pet sec]
               (if (p/dead? acc-pet)
                 (reduced acc-pet)
-                (sim-tick acc-pet sim-settings)))
+                (sim-tick acc-pet settings)))
 
             pet
 

@@ -15,7 +15,7 @@
 
 (defn new-game-state-for-now [starting-health starting-satiation question-set settings]
   {:pet (pe/new-pet starting-health starting-satiation)
-   :q-gen (qg/->Question-Generator question-set)
+   :q-gen (qg/new-question-generator question-set)
    :last-update (t/now)
    :settings settings})
 
@@ -25,6 +25,6 @@
         elapsed (t/seconds-between last-update now)]
 
     (-> game-state
-      (update :pet #(ts/advance-pet-by % (:sim-settings settings) elapsed))
+      (update :pet #(ts/advance-pet-by % settings elapsed))
       (assoc :last-update now))))
 

@@ -20,7 +20,7 @@
 ; TODO: Try to generalize so this doesn't need to be entirely duplicated for the Quil version
 (defn main-loop [game-state save-label rand-gen]
   (loop [acc-state (gs/apply-time game-state)]
-    (println (str "\n" (-> acc-state :pet str)))
+    (println (str "\n" (-> acc-state :pet pe/format-pet)))
     (me/print-menu-options)
 
     (let [option-char (me/ask-for-menu-option)

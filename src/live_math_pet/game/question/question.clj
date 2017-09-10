@@ -1,6 +1,9 @@
-(ns live-math-pet.game.question.question)
+(ns live-math-pet.game.question.question
+  (:require [live-math-pet.game.helpers :as h]))
 
-(defrecord Question [operator arg1 arg2])
+(defn new-question [operator arg1 arg2]
+  (h/gen-arg-map new-question
+    operator arg1 arg2))
 
 (defn answer [question]
   (let [{:keys [operator arg1 arg2]} question]

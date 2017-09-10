@@ -31,12 +31,9 @@
   "Creates a default game state with the last update time as the time this function was called."
   []
   (gs/new-game-state-for-now
-    (pe/new-pet starting-health starting-satiation)
+    starting-health, starting-satiation
 
-    (qg/->Question-Generator operator-ranges)
+    operator-ranges
 
-    (t/now)
-
-    (se/->Settings
-      (se/->Sim-Settings health-per-tick pain-per-tick hunger-per-tick)
-      (se/->Question-Settings pain-per-wrong-q food-per-right-q))))
+    (se/new-settings health-per-tick pain-per-tick hunger-per-tick
+                     pain-per-wrong-q food-per-right-q)))

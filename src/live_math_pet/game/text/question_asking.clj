@@ -34,17 +34,16 @@
   or nil to indicate that the user wants to stop."
   [game-state rand-gen]
   (let [right-or-stop? (raw-ask-question (:q-gen game-state) rand-gen)
-        q-settings (-> game-state :settings :question-settings)
-        {foR :food-per-right, paW :pain-per-wrong} q-settings
+        settings (:settings game-state)
+        {foR :food-per-right, paW :pain-per-wrong} settings
         [message act] (if right-or-stop? [right-message #(pe/feed % foR)]
                                          [wrong-message #(pe/hurt % paW)])]
-
     (when (some? right-or-stop?)
-      ; FIXME: Eww! Figure out advanced pet above, then re-associate with state?
-      (println message (str (act (:pet game-state) "\n")))
-      (-> game-state
-          (update :pet act)
-          (gs/apply-time)))))
+      (let [advanced-pet (act (:pet game-state))]
+        (println message (pe/format-pet advanced-pet) "\n")
+        (-> game-state
+            (assoc :pet advanced-pet)
+            (gs/apply-time))))))
 
 (defn ask-questions [game-state rand-gen]
   (loop [acc-state game-state]
