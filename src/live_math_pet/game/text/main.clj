@@ -13,11 +13,13 @@
 
   (:import [java.io FileNotFoundException]))
 
-; TODO: Loading is broken unfortunately. Works otherwise.
+; TODO:
+;  - Detect death. On each save?
+;  - Generalize the main-loop
+;  -))
 
 (def global-rand-gen (g/new-rand-gen 99))
 
-; TODO: Try to generalize so this doesn't need to be entirely duplicated for the Quil version
 (defn main-loop [game-state save-label rand-gen]
   (loop [acc-state (gs/apply-time game-state)]
     (println (str "\n" (-> acc-state :pet pe/format-pet)))
