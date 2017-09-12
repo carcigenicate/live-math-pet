@@ -51,6 +51,6 @@
 
 (defn format-pet [pet]
   (let [{:keys [health max-health satiation max-satiation]} pet
-        r #(format-round % 2)]
+        r #(format-round % 3)]
     (str "{HP: " (r health) "/" max-health
          " -  Sat: " (r satiation) "/" max-satiation "}")))

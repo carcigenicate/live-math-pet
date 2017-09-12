@@ -1,4 +1,4 @@
-(defproject live-math-pet "0.1.0-SNAPSHOT"
+(defproject live-math-pet "1"
 
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [helpers "1"]
