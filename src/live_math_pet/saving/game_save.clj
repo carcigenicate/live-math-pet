@@ -5,7 +5,7 @@
 
             [live-math-pet.saving.saving-helpers :as sh]
 
-            [live-math-pet.game.operator-symbols :as os]
+            [live-math-pet.operator-symbols :as os]
             [live-math-pet.game.game-state :as gs]
             [live-math-pet.game.settings :as se]
             [live-math-pet.game.pet :as pe]

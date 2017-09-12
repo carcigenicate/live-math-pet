@@ -1,4 +1,4 @@
-(ns live-math-pet.game.operator-symbols
+(ns live-math-pet.operator-symbols
   (:require [clojure.set :as set]))
 
 (def operator-symbols

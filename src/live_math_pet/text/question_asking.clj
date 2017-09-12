@@ -2,7 +2,7 @@
   (:require [live-math-pet.game.pet :as pe]
             [live-math-pet.game.question.question-generator :as qg]
             [live-math-pet.game.question.question :as que]
-            [live-math-pet.game.operator-symbols :as os]
+            [live-math-pet.operator-symbols :as os]
             [live-math-pet.game.game-state :as gs]
 
             [live-math-pet.text.helpers :as th]
