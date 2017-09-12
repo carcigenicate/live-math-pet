@@ -1,5 +1,5 @@
 (ns live-math-pet.game.question.question
-  (:require [live-math-pet.game.helpers :as h]))
+  (:require [live-math-pet.helpers :as h]))
 
 (defn new-question [operator arg1 arg2]
   (h/gen-arg-map new-question

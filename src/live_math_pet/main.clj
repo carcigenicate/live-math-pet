@@ -1,12 +1,15 @@
 (ns live-math-pet.main
-  (:require [live-math-pet.game.text.main :as t-main]
+  (:require [live-math-pet.text.main :as t-main]
             [live-math-pet.game.defaults :as default]
-            [live-math-pet.game.saving.game-save :as g-save])
+            [live-math-pet.saving.game-save :as g-save])
 
-  (:import (java.io FileNotFoundException))
+  (:import [java.io FileNotFoundException])
 
   (:gen-class))
 
+; TODO:
+;  - Finishing touches before trying full graphics
+;  - Shop system
 
 (defn load-with-default [label default-state]
   (try

@@ -1,4 +1,4 @@
-(ns live-math-pet.game.saving.saving-helpers
+(ns live-math-pet.saving.saving-helpers
   (:require [clojure.edn :as edn]))
 
 (def save-path "./")

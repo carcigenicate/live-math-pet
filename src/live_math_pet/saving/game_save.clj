@@ -1,11 +1,13 @@
-(ns live-math-pet.game.saving.game-save
-  (:require [live-math-pet.game.time :as t]
+(ns live-math-pet.saving.game-save
+  (:require [clojure.edn :as edn]
+
+            [live-math-pet.time :as t]
+
+            [live-math-pet.saving.saving-helpers :as sh]
+
             [live-math-pet.game.operator-symbols :as os]
-            [live-math-pet.game.saving.saving-helpers :as sh]
             [live-math-pet.game.game-state :as gs]
             [live-math-pet.game.settings :as se]
-
-            [clojure.edn :as edn]
             [live-math-pet.game.pet :as pe]
             [live-math-pet.game.question.question-generator :as qg]))
 

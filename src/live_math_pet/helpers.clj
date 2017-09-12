@@ -1,4 +1,4 @@
-(ns live-math-pet.game.helpers
+(ns live-math-pet.helpers
   (:require [clojure.string :as s]))
 
 (defmacro defmap

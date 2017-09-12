@@ -1,6 +1,6 @@
 (ns live-math-pet.game.main-loop
   (:require [live-math-pet.game.game-state :as gs]
-            [live-math-pet.game.saving.game-save :as g-save]
+            [live-math-pet.saving.game-save :as g-save]
             [live-math-pet.game.pet :as pe]
             [live-math-pet.game.defaults :as default]))
 

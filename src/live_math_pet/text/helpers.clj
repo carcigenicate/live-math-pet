@@ -1,4 +1,4 @@
-(ns live-math-pet.game.text.helpers)
+(ns live-math-pet.text.helpers)
 
 (defn print-fl [& msgs]
   (apply print msgs)

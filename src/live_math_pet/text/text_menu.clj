@@ -1,5 +1,5 @@
-(ns live-math-pet.game.text.text-menu
-  (:require [live-math-pet.game.text.question-asking :as qa]
+(ns live-math-pet.text.text-menu
+  (:require [live-math-pet.text.question-asking :as qa]
 
             [clojure.string :as s]
             [helpers.general-helpers :as g]

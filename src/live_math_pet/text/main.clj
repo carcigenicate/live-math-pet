@@ -1,9 +1,10 @@
-(ns live-math-pet.game.text.main
+(ns live-math-pet.text.main
   (:require [helpers.general-helpers :as g]
 
+            [live-math-pet.text.text-menu :as me]
+
             [live-math-pet.game.main-loop :as ml]
-            [live-math-pet.game.text.text-menu :as me]
-            [live-math-pet.game.saving.game-save :as g-save]
+            [live-math-pet.saving.game-save :as g-save]
             [live-math-pet.game.defaults :as default])
 
   (:import [java.io FileNotFoundException]))

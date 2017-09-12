@@ -1,10 +1,12 @@
-(ns live-math-pet.game.text.question-asking
+(ns live-math-pet.text.question-asking
   (:require [live-math-pet.game.pet :as pe]
             [live-math-pet.game.question.question-generator :as qg]
             [live-math-pet.game.question.question :as que]
             [live-math-pet.game.operator-symbols :as os]
             [live-math-pet.game.game-state :as gs]
-            [live-math-pet.game.text.helpers :as th]
+
+            [live-math-pet.text.helpers :as th]
+
             [helpers.general-helpers :as g]))
 
 (def right-message "Right!")

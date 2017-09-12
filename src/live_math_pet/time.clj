@@ -1,4 +1,4 @@
-(ns live-math-pet.game.time
+(ns live-math-pet.time
   (:require [clj-time.core :as ct]
             [clj-time.local :as cl]
             [clj-time.format :as cf]))

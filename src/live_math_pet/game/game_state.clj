@@ -3,7 +3,7 @@
             [live-math-pet.game.question.question-types :as qt]
             [live-math-pet.game.pet :as pe]
             [live-math-pet.game.settings :as se]
-            [live-math-pet.game.time :as t]
+            [live-math-pet.time :as t]
             [live-math-pet.game.time-simulation :as ts]))
 
 ; TODO: Money?
