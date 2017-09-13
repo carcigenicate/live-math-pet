@@ -6,7 +6,7 @@
             [live-math-pet.time :as t]
             [live-math-pet.game.time-simulation :as ts]))
 
-; TODO: Money?
+; TODO: Money? Just keep life-force idea?
 
 ; TODO: Add settings and question-set to Game-Save
 ; TODO: Just save the entire state to disk?

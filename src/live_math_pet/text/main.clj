@@ -1,7 +1,7 @@
 (ns live-math-pet.text.main
   (:require [helpers.general-helpers :as g]
 
-            [live-math-pet.text.text-menu :as me]
+            [live-math-pet.text.main-menu :as me]
 
             [live-math-pet.game.main-loop :as ml]
             [live-math-pet.saving.game-save :as g-save]

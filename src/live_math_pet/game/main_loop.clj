@@ -16,7 +16,6 @@
   "menu-f should be a function that takes the current state, and returns an altered-state, or nil to stop."
   [game-state save-label menu-f death-f]
   (loop [acc-state (gs/apply-time game-state)]
-
     (if (pet-dead? acc-state)
       (do
         (death-f acc-state)

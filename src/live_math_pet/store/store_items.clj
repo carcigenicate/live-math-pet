@@ -6,9 +6,9 @@
 
 (defn adjust-stat [state key op]
   (st-h/effect-state-with-cost state stat-adjustment-cost
-       (fn [state]
-         (update-in state [:pet key] #(op % stat-adjustment-amount)))))
+       (fn [s]
+         (update-in s [:pet key] #(op % stat-adjustment-amount)))))
 
 (def items
-  {::increase-health #(adjust-stat % :health +)
-   ::increase-satiation #(adjust-stat % :satiation +)})
+  {::increase-health #(adjust-stat % :max-health +)
+   ::increase-satiation #(adjust-stat % :max-satiation +)})
