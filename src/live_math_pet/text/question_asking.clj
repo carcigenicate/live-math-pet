@@ -15,7 +15,7 @@
 (defn raw-ask-question
   "Returns 3 possible values:
   nil if the user wants to stop,
-  or, true or false to indicate whether or not the user got the question right."
+  or, a pair of [the-answer, (true or false to indicate whether or not the user got the question right.)"
   [q-gen rand-gen]
   (let [q (qg/simple-random-question q-gen rand-gen)
         ans (que/answer q)
@@ -24,7 +24,7 @@
                  (th/ask-for-input (str (que/format-question q os/operator-symbols) ": ")))]
 
     (when (some? guess)
-      (= guess ans))))
+      [ans (= guess ans)])))
 
 ; TODO: Try to factor out asking/displaying questions/results using HOF.
 ; TODO: Accept: - Func taking a Question, to be used to display somewhere. Return the user's answer
@@ -38,6 +38,7 @@
   (let [right-or-stop? (raw-ask-question (:q-gen game-state) rand-gen)
         settings (:settings game-state)
         {foR :food-per-right, paW :pain-per-wrong} settings
+        ; FIXME: Deconstruct right-or-stop? if truthy. Change wrong-message
         [message act] (if right-or-stop? [right-message #(pe/feed % foR)]
                                          [wrong-message #(pe/hurt % paW)])]
     (when (some? right-or-stop?)
