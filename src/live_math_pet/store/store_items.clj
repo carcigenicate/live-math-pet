@@ -6,6 +6,11 @@
 
 (def revive-cost 100)
 
+; TODO: Incorporate a cost field, and automate some of the tasks
+;        like "charging" the pet and showing a description.
+#_
+(defrecord Item [action description])
+
 (defn update-pet [state f]
   (update-in state [:pet key] f))
 

@@ -1,5 +1,6 @@
 (ns live-math-pet.game.pet
-  (:require [helpers.general-helpers :as g]))
+  (:require [helpers.general-helpers :as g]
+            [live-math-pet.helpers :as h]))
 
 (def well-fed-percentage 0.8)
 
@@ -45,12 +46,8 @@
   (>= (:satiation pet)
       (* (:satiation pet) well-fed-percentage)))
 
-(defn format-round [num places]
-  (format (str "%." places "f")
-          (double num)))
-
 (defn format-pet [pet]
   (let [{:keys [health max-health satiation max-satiation]} pet
-        r #(format-round % 3)]
+        r #(h/format-round % 3)]
     (str "{HP: " (r health) "/" max-health
          " -  Sat: " (r satiation) "/" max-satiation "}")))

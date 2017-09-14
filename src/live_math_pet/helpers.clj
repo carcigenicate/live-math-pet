@@ -18,3 +18,7 @@
   `(let [args# (-> ~parent-fn var meta :arglists first)]
      (into {}
        (map #(vector (keyword %) %2) args# ~(vec values)))))
+
+(defn format-round [num places]
+  (format (str "%." places "f")
+          (double num)))

@@ -6,13 +6,14 @@
             [live-math-pet.game.main-loop :as ml]
             [live-math-pet.saving.game-save :as g-save]
             [live-math-pet.game.defaults :as default]
-            [live-math-pet.time-alive :as ta])
+            [live-math-pet.time-alive :as ta]
+            [live-math-pet.helpers :as h])
 
   (:import [java.io FileNotFoundException]))
 
 (defn days-alive [state]
   (let [hours-alive (ta/hours-alive state)]
-    (/ hours-alive 24.0)))
+    (h/format-round (/ hours-alive 24.0) 3)))
 
 (defn death-f [state]
   (println "Your pet died :(\nCreating a new save..."))
