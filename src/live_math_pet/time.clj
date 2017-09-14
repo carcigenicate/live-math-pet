@@ -1,6 +1,5 @@
 (ns live-math-pet.time
   (:require [clj-time.core :as ct]
-            [clj-time.local :as cl]
             [clj-time.format :as cf]))
 
 (def date-formatter (cf/formatters :basic-date-time))

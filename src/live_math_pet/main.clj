@@ -9,7 +9,8 @@
 
 ; TODO:
 ;  - Finishing touches before trying full graphics
-;  - Shop system
+;  - Add a "created date" field, and display how long the pets been alive.
+;  - Show correct answer when answered incorrectly
 
 (defn load-with-default [label default-state]
   (try

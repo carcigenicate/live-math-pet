@@ -5,12 +5,19 @@
 
             [live-math-pet.game.main-loop :as ml]
             [live-math-pet.saving.game-save :as g-save]
-            [live-math-pet.game.defaults :as default])
+            [live-math-pet.game.defaults :as default]
+            [live-math-pet.time-alive :as ta])
 
   (:import [java.io FileNotFoundException]))
+
+(defn days-alive [state]
+  (let [hours-alive (ta/hours-alive state)]
+    (/ hours-alive 24.0)))
 
 (defn death-f [state]
   (println "Your pet died :(\nCreating a new save..."))
 
 (defn text-main [state label]
+  (println "Your pet has been alive for" (days-alive state) "days.")
+
   (ml/main-loop state label me/menu-f death-f))
