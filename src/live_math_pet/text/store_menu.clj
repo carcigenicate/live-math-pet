@@ -2,7 +2,8 @@
   (:require [live-math-pet.store.store-items :as si]
             [live-math-pet.text.text-menu-helpers :as mh]
             [clojure.string :as s]
-            [helpers.general-helpers :as g]))
+            [helpers.general-helpers :as g]
+            [live-math-pet.store.item :as i]))
 
 (def menu-str->items
   (-> (zipmap (map str (range))
@@ -13,7 +14,7 @@
 (def formatted-menu
   (vec
     (for [[s i] menu-str->items]
-      [s (if i (str i) "Exit")])))
+      [s (if i (str i "\n") "Exit")])))
 
 (defn prompt-for-menu-str []
   (let [prep #(str (Character/toLowerCase ^Character (first %)))]
@@ -30,5 +31,5 @@
 (defn menu-f [state]
   (loop [acc-state state]
     (if-let [item (prompt-for-menu-item? acc-state)]
-      (recur (si/apply-item-to-state acc-state item))
+      (recur (i/apply-item-to-state acc-state item))
       acc-state)))
