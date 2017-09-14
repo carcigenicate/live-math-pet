@@ -1,31 +1,33 @@
 (ns live-math-pet.store.store-items
-  (:require [live-math-pet.store.store-helpers :as st-h]))
+  (:require [live-math-pet.store.store-helpers :as st-h]
+            [live-math-pet.store.store-actions :as ma]))
 
-(def stat-adjustment-amount 1)
-(def stat-adjustment-cost 10)
+(def stat-increase-amount 1)
+(def stat-increase-cost 10)
 
-(def revive-cost 100)
+(def full-revive-cost 100)
 
-; TODO: Incorporate a cost field, and automate some of the tasks
-;        like "charging" the pet and showing a description.
-#_
-(defrecord Item [action description])
+(def life-force-sym "LF")
 
-(defn update-pet [state f]
-  (update-in state [:pet key] f))
+(defrecord Item [description cost action]
+  Object
+  (toString [_] (str description ": " cost life-force-sym)))
 
-(defn adjust-stat [state key op]
-  (st-h/effect-state-with-cost state stat-adjustment-cost
-       (fn [s]
-         (update-in s [:pet key] #(op % stat-adjustment-amount)))))
-
-(defn revive [state]
-  (-> state
-      (st-h/effect-state-with-cost revive-cost
-        (fn [s]
-          (update s :pet #(assoc % :health (:max-health %)))))))
+(defn apply-item-to-state [state item]
+  (let [{:keys [action cost]} item]
+    (-> state
+        (action)
+        (st-h/state-pay-with-life-force cost))))
 
 (def items
-  {::increase-health #(adjust-stat % :max-health +)
-   ::increase-satiation #(adjust-stat % :max-satiation +)
-   ::full-revive revive})
+  [(->Item (str "Increase max health by " stat-increase-amount)
+           stat-increase-cost
+           #(ma/increase-pet-stat % :max-health stat-increase-amount))
+
+   (->Item (str "Increase max satiation by " stat-increase-amount)
+           stat-increase-cost
+           #(ma/increase-pet-stat % :max-satiation stat-increase-amount))
+
+   (->Item "Fully restore health"
+           full-revive-cost
+           ma/fully-revive-pet)])

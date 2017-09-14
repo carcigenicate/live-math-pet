@@ -3,6 +3,9 @@
             [helpers.general-helpers :as g]
             [live-math-pet.game.pet :as pe]))
 
+(def prompt ">: ")
+(def entry-error-message "Invalid option.\n")
+
 (defn format-str [^String s]
   (-> s
       (s/upper-case)))
@@ -32,7 +35,7 @@
     then checked for membership in the binding map."
   [binding-map preprocessor]
   (preprocessor
-      (g/ask-for-input ">: " "Invalid option.\n"
+      (g/ask-for-input prompt entry-error-message
                        #(binding-map (preprocessor %)))))
 
 (defn print-standard-menu [state formatted-options]

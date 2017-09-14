@@ -9,7 +9,5 @@
       (pe/hurt starved-pet (- cost satiation))
       starved-pet)))
 
-(defn effect-state-with-cost [state cost f]
-  (-> state
-    (update :pet #(pay-with-life-force % cost))
-    (f)))
+(defn state-pay-with-life-force [state cost]
+  (update state :pet #(pay-with-life-force % cost)))
