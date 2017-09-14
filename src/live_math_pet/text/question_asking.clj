@@ -9,8 +9,8 @@
 
             [helpers.general-helpers :as g]))
 
-(def right-message "Right!")
-(def wrong-message "Wrong :(")
+(def right-message "Right")
+(defn wrong-message [ans] (str "Wrong (" ans ")"))
 
 (defn raw-ask-question
   "Returns 3 possible values:
@@ -35,18 +35,20 @@
   "Returns either the new game state that resulted from the user answering a question,
   or nil to indicate that the user wants to stop."
   [game-state rand-gen]
-  (let [right-or-stop? (raw-ask-question (:q-gen game-state) rand-gen)
-        settings (:settings game-state)
-        {foR :food-per-right, paW :pain-per-wrong} settings
-        ; FIXME: Deconstruct right-or-stop? if truthy. Change wrong-message
-        [message act] (if right-or-stop? [right-message #(pe/feed % foR)]
-                                         [wrong-message #(pe/hurt % paW)])]
-    (when (some? right-or-stop?)
-      (let [advanced-pet (act (:pet game-state))]
-        (println message (pe/format-pet advanced-pet) "\n")
-        (-> game-state
-            (assoc :pet advanced-pet)
-            (gs/apply-time))))))
+  (let [answered? (raw-ask-question (:q-gen game-state) rand-gen)]
+    (if answered?
+        (let [[answer right?] answered?
+              settings (:settings game-state)
+              {foR :food-per-right, paW :pain-per-wrong} settings
+              [message act] (if right? [right-message #(pe/feed % foR)]
+                                       [(wrong-message answer) #(pe/hurt % paW)])
+
+              advanced-pet (act (:pet game-state))]
+
+          (println message (pe/format-pet advanced-pet) "\n")
+          (-> game-state
+              (assoc :pet advanced-pet)
+              (gs/apply-time))))))
 
 (defn ask-questions [game-state rand-gen]
   (loop [acc-state game-state]
