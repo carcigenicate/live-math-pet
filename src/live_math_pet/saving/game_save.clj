@@ -22,15 +22,14 @@
               [(os/operator-symbols o) r]) %))))
 
 (defn translate-date-obj-to-str [game-state]
-  (update game-state :last-update t/format-date))
+  (-> game-state
+    (update :creation-date t/format-date)
+    (update :last-update t/format-date)))
 
 (defn translate-to-symbols-pre-save [game-state]
   (-> game-state
       (translate-date-obj-to-str)
       (translate-math-operators-to-symbols)))
-
-(defn nested-recs-to-nest-maps [record-node])
-
 
 (defn save-game-save [label game-state]
   (-> game-state
@@ -46,7 +45,9 @@
               [(os/operator-from-symbol s) r]) %))))
 
 (defn translate-date-str-to-obj [game-state]
-  (update game-state :last-update t/read-date))
+  (-> game-state
+      (update :creation-date t/read-date)
+      (update :last-update t/read-date)))
 
 (defn translate-from-symbols-post-load [unprepared-game-state]
   (-> unprepared-game-state
