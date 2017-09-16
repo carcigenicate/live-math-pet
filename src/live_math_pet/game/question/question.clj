@@ -9,6 +9,10 @@
   (let [{:keys [operator arg1 arg2]} question]
     (operator arg1 arg2)))
 
+(defn right-answer? [question guess]
+  (= (answer question)
+     guess))
+
 (defn format-question [question operator-str-map]
   (let [{:keys [operator arg1 arg2]} question]
     (str arg1 " " (operator-str-map operator) " " arg2)))
