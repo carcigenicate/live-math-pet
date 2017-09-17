@@ -2,7 +2,7 @@
   (:require [live-math-pet.game.pet :as pe]
             [live-math-pet.game.question.question-generator :as qg]
             [live-math-pet.game.question.question :as que]
-            [live-math-pet.question.question-asking :as qa]
+            [live-math-pet.game.question.question-asking :as qa]
             [live-math-pet.game.game-state :as gs]
 
             [live-math-pet.operator-symbols :as os]
@@ -19,9 +19,7 @@
   nil if the user wants to stop,
   or, a pair of [the-answer, (true or false to indicate whether or not the user got the question right.)"
   [question]
-  (let [ans (que/answer question)
-
-        guess  (g/parse-int
+  (let [guess  (g/parse-int
                  (th/ask-for-input (str (que/format-question question os/operator-symbols) ": ")))]
 
     guess))
@@ -30,9 +28,8 @@
   (let [msg (if right-answer? (wrong-message right-answer?)
                               right-message)]
 
-    (println (str msg "\n" (pe/format-pet advanced-pet)))))
+    (println (str msg " - " (pe/format-pet advanced-pet) "\n"))))
 
-; TODO: TEST!
 (defn ask-questions [game-state rand-gen]
   (qa/ask-questions game-state
                     question-f
