@@ -47,6 +47,12 @@
   (let [dead? #(pe/dead? (:pet %))]
     (loop [acc-state game-state]
       (let [result-state? (ask-question acc-state question-f result-f rand-gen)]
-        (if (or (nil? result-state?) (dead? result-state?))
+        (cond
+          (nil? result-state?)
+          acc-state
+
+          (dead? result-state?)
           result-state?
+
+          :else
           (recur result-state?))))))
