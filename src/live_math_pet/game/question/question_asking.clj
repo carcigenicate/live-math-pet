@@ -48,5 +48,5 @@
     (loop [acc-state game-state]
       (let [result-state? (ask-question acc-state question-f result-f rand-gen)]
         (if (or (nil? result-state?) (dead? result-state?))
-          acc-state
+          result-state?
           (recur result-state?))))))

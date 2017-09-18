@@ -15,15 +15,16 @@
 (defn main-loop
   "menu-f should be a function that takes the current state, and returns an altered-state, or nil to stop."
   [game-state save-label menu-f death-f]
-  (loop [acc-state (gs/apply-time game-state)]
+  (loop [acc-state game-state]
     (if (pet-dead? acc-state)
       (do
         (death-f acc-state)
         (overwrite-save-with-new save-label acc-state))
 
-      (if-let [menu-altered-state (menu-f acc-state)]
-        (let [t-state (gs/apply-time menu-altered-state)]
-          (g-save/save-game-save save-label t-state)
-          (recur t-state))
+      (let [t-state (gs/apply-time acc-state)]
+        (if-let [menu-altered-state (menu-f t-state)]
+          (do
+            (g-save/save-game-save save-label menu-altered-state)
+            (recur menu-altered-state))
 
-        (gs/apply-time acc-state)))))
+          t-state)))))
