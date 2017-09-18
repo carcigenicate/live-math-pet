@@ -44,9 +44,9 @@
   "Asks the user questions, returning the resulting state.
   The descriptions of question-f and result-f can be found in the docs for ask-question."
   [game-state question-f result-f rand-gen]
-  (loop [acc-state game-state]
-
-    (let [result-state? (ask-question acc-state question-f result-f rand-gen)]
-      (if (nil? result-state?)
-        acc-state
-        (recur result-state?)))))
+  (let [dead? #(pe/dead? (:pet %))]
+    (loop [acc-state game-state]
+      (let [result-state? (ask-question acc-state question-f result-f rand-gen)]
+        (if (or (nil? result-state?) (dead? result-state?))
+          acc-state
+          (recur result-state?))))))
