@@ -11,13 +11,13 @@
 ; TODO: Try to factor out asking/displaying questions/results using HOF.
 ; TODO: Accept: - Func taking a Question, to be used to display somewhere. Return the user's answer
 ; TODO:             - How to indicate to the caller if the answer was right?
-; TODO:             - Expect them to use the question to get the answer? Probably cleanest.
+; TODO:             - Expect them to use the question_panel to get the answer? Probably cleanest.
 ; TODO:         - That's it?
 (defn ask-question
-  "- question-f should be a function accepting a Question, and returning the user's guess
-   - result-f should be a function accepting whether or not the question was answered wrong, and the resulting pet.
-     The first argument will either be nil indicating that the question was answered correctly, or the correct answer.
-  Returns either the new game state that resulted from the user answering a question,
+  "- question_panel-f should be a function accepting a Question, and returning the user's guess
+   - result-f should be a function accepting whether or not the question_panel was answered wrong, and the resulting pet.
+     The first argument will either be nil indicating that the question_panel was answered correctly, or the correct answer.
+  Returns either the new game state that resulted from the user answering a question_panel,
   or nil to indicate that the user wants to stop."
   [game-state question-f result-f rand-gen]
   (let [q (gen-question game-state rand-gen)
@@ -42,7 +42,7 @@
 
 (defn ask-questions
   "Asks the user questions, returning the resulting state.
-  The descriptions of question-f and result-f can be found in the docs for ask-question."
+  The descriptions of question_panel-f and result-f can be found in the docs for ask-question_panel."
   [game-state question-f result-f rand-gen]
   (let [dead? #(pe/dead? (:pet %))]
     (loop [acc-state game-state]
